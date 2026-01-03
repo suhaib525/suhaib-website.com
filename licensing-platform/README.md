@@ -6,7 +6,11 @@ A secure software licensing platform built with Next.js, Tailwind CSS, Prisma, a
 
 - **License Key Management**: Generate, validate, and manage license keys
 - **HWID Locking**: Hardware ID locking to prevent unauthorized usage
+- **User Management**: User registration, login, and profile management
+- **Product Management**: Create and manage software products
+- **API Key Management**: Generate and manage API keys for applications
 - **Admin Dashboard**: Web interface for managing licenses and users
+- **User Dashboard**: Personal dashboard for managing licenses and products
 - **API Endpoints**: RESTful API for client software integration
 - **Security**: JWT authentication, rate limiting, and encryption
 
@@ -99,6 +103,18 @@ A secure software licensing platform built with Next.js, Tailwind CSS, Prisma, a
 - **POST /api/admin/licenses** - Create a new license
 - **PUT /api/admin/licenses/:id** - Update a license
 - **DELETE /api/admin/licenses/:id** - Revoke a license
+
+### User API (requires authentication)
+
+- **GET /api/user/licenses** - Get user's licenses
+- **GET /api/user/products** - Get user's products
+- **POST /api/user/products** - Create a new product
+- **POST /api/user/api-keys** - Generate a new API key
+
+### Authentication API
+
+- **POST /api/auth/signup** - User registration
+- **POST /api/auth/signin** - User login (handled by NextAuth)
 
 ## Security Features
 

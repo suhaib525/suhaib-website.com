@@ -9,8 +9,14 @@ All notable changes to this project will be documented in this file.
 - License key generation and validation system
 - HWID locking mechanism
 - Admin dashboard for license management
+- User dashboard for managing personal licenses and products
+- User registration and authentication system
+- Product management interface
+- API key management for applications
 - API endpoints for client integration
 - Authentication system with NextAuth.js
+- User-specific API endpoints
+- Enhanced navigation with role-based links
 
 ### Changed
 - N/A

@@ -14,6 +14,8 @@ export default function Navigation() {
 
   if (session?.user?.role === 'ADMIN') {
     navLinks.push({ name: 'Admin', href: '/admin/dashboard' });
+  } else if (session?.user?.role === 'USER') {
+    navLinks.push({ name: 'Dashboard', href: '/user/dashboard' });
   }
 
   return (
@@ -55,12 +57,20 @@ export default function Navigation() {
                   </button>
                 </div>
               ) : (
-                <Link
-                  href="/auth/signin"
-                  className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Sign In
-                </Link>
+                <div className="flex space-x-2">
+                  <Link
+                    href="/auth/signin"
+                    className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/auth/signup"
+                    className="px-3 py-1 text-sm font-medium text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
               )}
             </div>
           </div>
