@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Enums for license types and status
+enum Role {
+  ADMIN
+  USER
+}
+
+enum LicenseType {
+  PERMANENT
+  SUBSCRIPTION
+  TRIAL
+}
+
+enum LicenseStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+  REVOKED
+  SUSPENDED
+}
+
+// Models
+model User {
+  id            String           @id @default(uuid())
+  email         String           @unique
+  password      String
+  role          Role             @default(USER)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  licenses      License[]
+  products      Product[]
+}
+
+model Product {
+  id            String           @id @default(uuid())
+  name          String
+  description   String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  userId        String
+  user          User             @relation(fields: [userId], references: [id])
+  licenses      License[]
+}
+
+model License {
+  id              String               @id @default(uuid())
+  key             String               @unique
+  productId       String
+  product         Product              @relation(fields: [productId], references: [id])
+  userId          String?
+  user            User?                @relation(fields: [userId], references: [id])
+  type            LicenseType
+  status          LicenseStatus        @default(ACTIVE)
+  maxActivations  Int?                 // null = unlimited
+  expiresAt       DateTime?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  activations     LicenseActivation[]
+}
+
+model HWID {
+  id            String               @id @default(uuid())
+  hash          String               @unique
+  metadata      Json?                // Additional hardware info
+  createdAt     DateTime             @default(now())
+  activations   LicenseActivation[]
+}
+
+model LicenseActivation {
+  id            String               @id @default(uuid())
+  licenseId     String
+  license       License              @relation(fields: [licenseId], references: [id])
+  hwidId        String
+  hwid          HWID                 @relation(fields: [hwidId], references: [id])
+  ipAddress     String
+  isActive      Boolean              @default(true)
+  activatedAt   DateTime             @default(now())
+  deactivatedAt DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
+
+model APIKey {
+  id            String               @id @default(uuid())
+  key           String               @unique
+  name          String
+  userId        String
+  user          User                 @relation(fields: [userId], references: [id])
+  isActive      Boolean              @default(true)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}

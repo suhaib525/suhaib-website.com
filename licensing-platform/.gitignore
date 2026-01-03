@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Next.js
+.next/
+out/
+
+# Prisma
+prisma/.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+trace.log
+*.log
+
+# Build artifacts
+build/
+dist/
+
+# Coverage
+coverage/
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# Testing
+*.spec.ts
+*.test.ts
+
+# Misc
+.DS_Store
+*.local
